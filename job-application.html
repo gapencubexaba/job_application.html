@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Job Application Form | Mini Project</title>
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Optional Bootstrap Icons (for subtle icons, just for polish) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    /* ----- custom CSS: alignment, spacing, colors, fieldset/legend styling, background ----- */
+    body {
+      background: linear-gradient(135deg, #f0f7ff 0%, #e9ecef 100%);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 2rem 1rem;
+    }
+
+    /* main form card container */
+    .application-card {
+      max-width: 950px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .card-header-custom {
+      background: #0a2b44;
+      padding: 1.5rem 2rem;
+      border-bottom: 4px solid #ff9f1c;
+    }
+
+    .card-header-custom h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.9rem;
+      letter-spacing: -0.3px;
+    }
+
+    .card-header-custom p {
+      margin: 0.4rem 0 0;
+      opacity: 0.85;
+      font-size: 0.95rem;
+    }
+
+    /* custom fieldset styling (CSS requirement) */
+    .custom-fieldset {
+      border: 2px solid #dee2e6;
+      border-radius: 24px;
+      padding: 1.6rem 1.8rem 1.8rem 1.8rem;
+      margin-bottom: 2rem;
+      background: #ffffff;
+      transition: border 0.2s;
+    }
+
+    .custom-fieldset:hover {
+      border-color: #86b7fe;
+    }
+
+    /* legend styling: bold, modern, color */
+    .custom-legend {
+      color: #0a2b44;
+      font-weight: 700;
+      font-size: 1.35rem;
+      width: auto;
+      padding: 0 0.75rem;
+      background: white;
+      border-radius: 40px;
+      letter-spacing: -0.2px;
+      border-left: 5px solid #ff9f1c;
+      margin-bottom: 0;
+    }
+
+    /* optional extra label emphasis */
+    .required-star::after {
+      content: " *";
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    /* spacing for check/radio groups */
+    .form-check-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .interest-check-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      row-gap: 0.8rem;
+    }
+
+    /* custom button styling */
+    .btn-submit {
+      background: #0a2b44;
+      border: none;
+      padding: 0.7rem 2rem;
+      font-weight: 600;
+      border-radius: 40px;
+      transition: all 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: #134b73;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(10, 43, 68, 0.2);
+    }
+
+    .btn-reset {
+      background: #f8f9fa;
+      color: #2c3e50;
+      border: 1px solid #ced4da;
+      padding: 0.7rem 2rem;
+      font-weight: 500;
+      border-radius: 40px;
+    }
+
+    .btn-reset:hover {
+      background: #e9ecef;
+      border-color: #adb5bd;
+    }
+
+    /* extra spacing for physical address */
+    .form-text-hint {
+      font-size: 0.75rem;
+      color: #6c757d;
+    }
+
+    /* small responsive adjustments */
+    @media (max-width: 576px) {
+      .custom-fieldset {
+        padding: 1.2rem;
+      }
+      .card-header-custom h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="application-card">
+  <div class="card-header-custom text-white">
+    <h1><i class="bi bi-briefcase-fill me-2"></i>Job Application Form</h1>
+    <p>Join our growing team — fill out the form below. All fields marked with * are required.</p>
+  </div>
+
+  <div class="p-4 p-md-5">
+    <form name="jobApplicationForm" id="jobForm" onsubmit="return validateAndSubmit(event)">
+      <!-- ========= 1. PERSONAL INFORMATION ========= -->
+      <fieldset class="custom-fieldset">
+        <legend class="custom-legend float-none w-auto">📋 Personal Information</legend>
+        <div class="row g-3 mt-2">
+          <div class="col-md-6">
+            <label for="fullname" class="form-label fw-semibold required-star">Full name</label>
+            <input type="text" class="form-control form-control-lg" id="fullname" name="fullname" placeholder="e.g., Jordan Lee">
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label fw-semibold required-star">Email address</label>
+            <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="name@example.com">
+          </div>
+          <div class="col-md-6">
+            <label for="telephone" class="form-label fw-semibold required-star">Telephone number</label>
+            <input type="tel" class="form-control form-control-lg" id="telephone" name="telephone" placeholder="+1 234 567 890">
+          </div>
+          <div class="col-md-6">
+            <label for="address" class="form-label fw-semibold">Physical address</label>
+            <input type="text" class="form-control form-control-lg" id="address" name="address" placeholder="Street, city, postal code">
+            <div class="form-text-hint">Optional, but helps us know your location</div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ========= 2. POSITION INFORMATION ========= -->
+      <fieldset class="custom-fieldset">
+        <legend class="custom-legend float-none w-auto">💼 Position Details</legend>
+        <div class="mb-4">
+          <label for="jobTitle" class="form-label fw-semibold">Desired job title</label>
+          <select class="form-select form-select-lg" id="jobTitle" name="jobTitle">
+            <option selected value="">-- Select a role --</option>
+            <option value="Account Executive">Account Executive</option>
+            <option value="Business Development Manager">Business Development Manager</option>
+            <option value="Inside Sales Representative">Inside Sales Representative</option>
+            <option value="Sales Manager">Sales Manager</option>
+            <option value="VP Sales">VP Sales</option>
+            <option value="Customer Success Lead">Customer Success Lead</option>
+          </select>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label fw-semibold">Employment type</label>
+          <div class="form-check-group">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="employmentType" id="partTimeContract" value="Part-time contract">
+              <label class="form-check-label" for="partTimeContract">Part-time contract</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="employmentType" id="partTimePerm" value="Part-time permanent">
+              <label class="form-check-label" for="partTimePerm">Part-time permanent</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="employmentType" id="fullTimeContract" value="Full-time contract">
+              <label class="form-check-label" for="fullTimeContract">Full-time contract</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="employmentType" id="fullTimePerm" value="Full-time permanent">
+              <label class="form-check-label" for="fullTimePerm">Full-time permanent</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ========= 3. AREA(S) OF INTEREST (CHECKBOXES - exactly as required) ========= -->
+      <fieldset class="custom-fieldset">
+        <legend class="custom-legend float-none w-auto">⭐ Areas of Interest <span class="text-danger small fw-normal">(select at least one)</span></legend>
+        <div class="interest-check-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="interest" id="interest_acctExec" value="Account Executive">
+            <label class="form-check-label" for="interest_acctExec">Account Executive</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="interest" id="interest_busDev" value="Business Development">
+            <label class="form-check-label" for="interest_busDev">Business Development</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="interest" id="interest_insideSales" value="Inside Sales">
+            <label class="form-check-label" for="interest_insideSales">Inside Sales</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="interest" id="interest_salesMgr" value="Sales Manager">
+            <label class="form-check-label" for="interest_salesMgr">Sales Manager</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="interest" id="interest_vpSales" value="VP Sales">
+            <label class="form-check-label" for="interest_vpSales">VP Sales</label>
+          </div>
+        </div>
+        <div class="form-text-hint mt-2"><i class="bi bi-info-circle-fill"></i> Select all that match your career interests</div>
+      </fieldset>
+
+      <!-- ========= 4. RELOCATION (RADIO BUTTONS) ========= -->
+      <fieldset class="custom-fieldset">
+        <legend class="custom-legend float-none w-auto">🌍 Willingness to relocate</legend>
+        <div class="d-flex gap-4">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="relocation" id="relocateYes" value="Yes">
+            <label class="form-check-label fw-medium" for="relocateYes">Yes, I'm willing to relocate</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="relocation" id="relocateNo" value="No">
+            <label class="form-check-label fw-medium" for="relocateNo">No, not at this time</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ========= 5. ADDITIONAL MESSAGE (TEXTAREA) ========= -->
+      <fieldset class="custom-fieldset">
+        <legend class="custom-legend float-none w-auto">✍️ Why are you suitable?</legend>
+        <div class="mb-2">
+          <label for="additionalMsg" class="form-label">Tell us about your skills, experience, or motivation</label>
+          <textarea class="form-control" id="additionalMsg" name="additionalMessage" rows="4" placeholder="I have 5+ years of experience in sales, passionate about driving growth..."></textarea>
+        </div>
+      </fieldset>
+
+      <!-- ========= 6. FORM CONTROLS: SUBMIT & RESET BUTTONS ========= -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-2 mb-3">
+        <button type="submit" class="btn btn-submit btn-lg text-white px-5"><i class="bi bi-send-check-fill me-2"></i>Submit Application</button>
+        <button type="reset" class="btn btn-reset btn-lg px-4"><i class="bi bi-arrow-repeat me-2"></i>Reset Form</button>
+      </div>
+      <p class="text-muted small mt-3 text-center"><i class="bi bi-shield-check"></i> Your data is secure — demo validation only</p>
+    </form>
+  </div>
+</div>
+
+<!-- JavaScript Validation: full name, email, telephone non-empty + at least one area of interest -->
+<script>
+  // Helper: show alert with one or multiple errors
+  function validateAndSubmit(event) {
+    // prevent default form submission (no backend, custom handling)
+    event.preventDefault();
+
+    // get values and trim whitespace
+    const fullName = document.getElementById('fullname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telephone = document.getElementById('telephone').value.trim();
+
+    // ---- Area of interest checkboxes (at least one selected) ----
+    const interestCheckboxes = document.querySelectorAll('input[name="interest"]');
+    let isInterestSelected = false;
+    for (let i = 0; i < interestCheckboxes.length; i++) {
+      if (interestCheckboxes[i].checked) {
+        isInterestSelected = true;
+        break;
+      }
+    }
+
+    // error array for user-friendly alert messages
+    let errors = [];
+
+    // 1. Name validation (not empty)
+    if (fullName === "") {
+      errors.push("• Full name is required.");
+    }
+
+    // 2. Email validation (not empty + basic email format)
+    if (email === "") {
+      errors.push("• Email address is required.");
+    } else {
+      // simple but reliable email pattern (contains @ and a domain part)
+      const emailPattern = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errors.push("• Please enter a valid email address (e.g., name@domain.com).");
+      }
+    }
+
+    // 3. Telephone validation (not empty)
+    if (telephone === "") {
+      errors.push("• Telephone number is required.");
+    } else {
+      // optional: allow only digits, spaces, +, - etc — but we only enforce non-empty as spec,
+      // but we can add a gentle hint for better UX (not breaking strict requirement)
+      if (telephone.length < 4) {
+        errors.push("• Telephone number seems too short — please provide a valid number.");
+      }
+    }
+
+    // 4. Area of interest: at least one checkbox selected (strict requirement)
+    if (!isInterestSelected) {
+      errors.push("• Please select at least one Area of Interest (Account Executive, Business Development, Inside Sales, Sales Manager, VP Sales).");
+    }
+
+    // If any errors exist, display them via alert (as per tutorial spec)
+    if (errors.length > 0) {
+      let errorMsg = "⚠️ Validation Error:\n" + errors.join("\n");
+      alert(errorMsg);
+      return false;   // prevent submission
+    }
+
+    // ---- SUCCESS: all validations passed ----
+    // Show success alert (tutorial requirement, using alert)
+    alert("✅ Application submitted successfully!\n\nThank you, " + fullName + ".\nWe've received your details and will contact you soon.");
+
+    // Optional: You can also reset the form after successful demo? but not required.
+    // For better user experience we keep form data but we could also reset, but better to keep filled,
+    // or we can optionally let user decide. We'll just return false and keep form as is.
+    // If you want to clear after submit (like real behaviour), uncomment next line: 
+    // document.getElementById('jobForm').reset();
+    // However spec does not demand auto-reset on success, so we keep filled but allow manual reset.
+    
+    // Since we used preventDefault, we return false to avoid any page reload.
+    return false;
+  }
+
+  // additional polish: reset button already works natively (type="reset")
+  // Ensure that reset also clears any dynamic error messages (not needed)
+  // Also we can attach a small listener for better usability (optional)
+  const resetBtn = document.querySelector('button[type="reset"]');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      // tiny UX: reset action will clear all fields, radios, checkboxes, selects.
+      // nothing else needed, default reset works perfectly with Bootstrap.
+      setTimeout(() => {
+        // optional gentle reminder after reset
+        console.log("Form has been reset.");
+      }, 10);
+    });
+  }
+</script>
+
+<!-- Bootstrap JS bundle (optional for toggles etc, but included for full responsiveness) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
